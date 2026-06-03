@@ -8,6 +8,7 @@
 
 <style>
 
+/* RESET */
 *{
 margin:0;
 padding:0;
@@ -21,7 +22,6 @@ color:#1f2937;
 }
 
 /* NAVBAR */
-
 nav{
 display:flex;
 justify-content:space-between;
@@ -65,27 +65,17 @@ color:#0a58ca;
 }
 
 /* HERO */
-
 .hero{
-
 height:650px;
-
 background:
-linear-gradient(
-rgba(11,31,58,.75),
-rgba(11,31,58,.75)
-),
-
+linear-gradient(rgba(11,31,58,.75),rgba(11,31,58,.75)),
 url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f');
-
 background-size:cover;
 background-position:center;
-
 display:flex;
 align-items:center;
 justify-content:center;
 text-align:center;
-
 color:white;
 padding:30px;
 }
@@ -119,8 +109,7 @@ font-weight:bold;
 background:#084298;
 }
 
-/* SERVICES */
-
+/* SECTIONS */
 .section{
 padding:80px 60px;
 }
@@ -135,26 +124,19 @@ font-size:40px;
 color:#0B1F3A;
 }
 
+/* SERVICES */
 .services{
-
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:25px;
-
 }
 
 .card{
-
 background:white;
-
 padding:30px;
-
 border-radius:12px;
-
 box-shadow:0 3px 15px rgba(0,0,0,.08);
-
 transition:.3s;
-
 }
 
 .card:hover{
@@ -166,64 +148,55 @@ margin-bottom:15px;
 color:#0B1F3A;
 }
 
-/* WHY US */
+/* CARD IMAGE */
+.card img{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:10px;
+margin-bottom:15px;
+}
 
+/* WHY SECTION */
 .why{
-
 background:#f7f9fc;
-
 }
 
 .features{
-
 display:grid;
-
 grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-
 gap:20px;
-
 }
 
 .feature{
-
 background:white;
-
 padding:25px;
-
 border-radius:12px;
-
 text-align:center;
+}
 
+/* DASHBOARD PREVIEW */
+.dashboard{
+background:#f7f9fc;
 }
 
 /* CTA */
-
 .cta{
-
 background:#0B1F3A;
-
 color:white;
-
 text-align:center;
-
 padding:80px 30px;
-
 }
 
 /* FOOTER */
-
 footer{
-
 background:#071426;
-
 color:white;
-
 padding:40px;
-
 text-align:center;
-
 }
 
+/* RESPONSIVE */
 @media(max-width:768px){
 
 .hero h1{
@@ -241,7 +214,6 @@ display:none;
 .section{
 padding:50px 20px;
 }
-
 }
 
 </style>
@@ -249,6 +221,7 @@ padding:50px 20px;
 
 <body>
 
+<!-- NAV -->
 <nav>
 
 <div class="logo">
@@ -264,30 +237,26 @@ padding:50px 20px;
 
 </nav>
 
+<!-- HERO -->
 <section class="hero">
 
 <div class="hero-content">
 
-<h1>
-Academic Success Starts Here
-</h1>
+<h1>Academic Success Starts Here</h1>
 
 <p>
-
 Professional support for thesis writing,
 dissertations, assignments, research projects,
 CV design and interview preparation.
-
 </p>
 
-<a href="login.html" class="btn">
-Start Learning
-</a>
+<a href="login.html" class="btn">Start Learning</a>
 
 </div>
 
 </section>
 
+<!-- SERVICES -->
 <section class="section">
 
 <div class="section-title">
@@ -298,50 +267,39 @@ Start Learning
 
 <div class="card">
 <h3>Thesis & Dissertation Support</h3>
-<p>
-Guidance from topic selection to final submission.
-</p>
+<p>Guidance from topic selection to final submission.</p>
 </div>
 
 <div class="card">
 <h3>Assignment Assistance</h3>
-<p>
-Professional academic support across multiple disciplines.
-</p>
+<p>Professional academic support across multiple disciplines.</p>
 </div>
 
 <div class="card">
 <h3>Research Support</h3>
-<p>
-Research proposals, methodology, data analysis and reporting.
-</p>
+<p>Research proposals, methodology, data analysis and reporting.</p>
 </div>
 
 <div class="card">
 <h3>CV Design</h3>
-<p>
-Professional CVs tailored to employers and opportunities.
-</p>
+<p>Professional CVs tailored to employers and opportunities.</p>
 </div>
 
 <div class="card">
 <h3>Interview Preparation</h3>
-<p>
-Build confidence and improve interview performance.
-</p>
+<p>Build confidence and improve interview performance.</p>
 </div>
 
 <div class="card">
 <h3>Online Learning Resources</h3>
-<p>
-Templates, guides, e-books and practical training.
-</p>
+<p>Templates, guides, e-books and practical training.</p>
 </div>
 
 </div>
 
 </section>
 
+<!-- WHY -->
 <section class="section why">
 
 <div class="section-title">
@@ -374,24 +332,50 @@ Templates, guides, e-books and practical training.
 
 </section>
 
-<section class="cta">
+<!-- DASHBOARD PREVIEW -->
+<section class="section dashboard">
 
-<h2>Ready to Achieve Your Goals?</h2>
+<div class="section-title">
+<h2>Student Dashboard Preview</h2>
+<p>Experience how learners interact with T&C Partners</p>
+</div>
 
-<br>
+<div class="services">
 
-<a href="login.html" class="btn">
-Join T&C Partners Today
-</a>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1600180758890-6b94519a8ba6">
+<h3>📘 Learning Materials</h3>
+<p>Access notes, guides, and academic resources anytime.</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1588072432836-e10032774350">
+<h3>🧠 AI Study Support</h3>
+<p>Get instant answers and research help through smart tools.</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644">
+<h3>🎓 Student Collaboration</h3>
+<p>Learn together with peers across Africa.</p>
+</div>
+
+</div>
 
 </section>
 
+<!-- CTA -->
+<section class="cta">
+
+<h2>Ready to Achieve Your Goals?</h2>
+<br>
+<a href="login.html" class="btn">Join T&C Partners Today</a>
+
+</section>
+
+<!-- FOOTER -->
 <footer>
-
-<p>
-© 2026 T&C Partners | Research, Learning & Career Development
-</p>
-
+<p>© 2026 T&C Partners | Research, Learning & Career Development</p>
 </footer>
 
 </body>
