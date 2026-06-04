@@ -1,40 +1,120 @@
-<!-- PAGE CONTENT ABOVE -->
+<!DOCTYPE html>
+<html lang="en">
 
-<!-- 8. Redirect After Login -->
-<script>
-// Toggle password visibility
-function togglePassword() {
-  const password = document.getElementById("password");
+<head>
+  <meta charset="UTF-8">
+  <title>T&C Partners | Login</title>
+  <link rel="stylesheet" href="styles.css">
 
-  // Switch between hidden and visible password
-  if (password.type === "password") {
-    password.type = "text";
-  } else {
-    password.type = "password";
-  }
-}
+  <!-- Supabase Library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
 
-// Login function
-function login() {
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+<body class="login-page">
 
-  // Simple demo login check
-  if (username === "student" && password === "1234") {
+  <div class="login-container">
 
-    // Redirect to dashboard after success
-    window.location.href = "dashboard.html";
+    <h1>T&C Partners</h1>
+    <p>Student Access Portal</p>
 
-  } else {
+    <!-- LOGIN BOX -->
+    <div class="login-box">
 
-    // Show error message
-    document.getElementById("error").innerText =
-      "Invalid username or password.";
-  }
-}
+      <h2>Login</h2>
 
-// Guest login function
-function guestLogin() {
-  window.location.href = "guest-dashboard.html";
-}
-</script>
+      <input id="username" type="email" placeholder="Email">
+      <input id="password" type="password" placeholder="Password">
+
+      <!-- Show Password -->
+      <label>
+        <input type="checkbox" onclick="togglePassword()">
+        Show Password
+      </label>
+
+      <button onclick="login()">Login</button>
+
+      <!-- Error message -->
+      <p id="error" class="error-message"></p>
+
+      <!-- Forgot password -->
+      <p>
+        <a href="forgot-password.html">Forgot Password?</a>
+      </p>
+
+      <!-- Register link -->
+      <p>
+        Don't have an account?
+        <a href="register.html">Register Here</a>
+      </p>
+
+    </div>
+
+    <!-- GUEST ACCESS -->
+    <div class="guest-box">
+      <h3>Or continue as Guest</h3>
+      <p>No login required</p>
+
+      <button onclick="guestLogin()">Guest Access</button>
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Home</a>
+
+  </div>
+
+  <!-- ===================== -->
+  <!-- SUPABASE + FUNCTIONS -->
+  <!-- ===================== -->
+
+  <script>
+    // 🔹 CONNECT TO SUPABASE (replace with your real values)
+    const supabaseUrl = "sdnifwufsfgnralrjxmiL";
+    const supabaseKey = "sb_publishable_foffboqIhYu0kfuM4X7pBA_d8j7kPUv";
+
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    // 🔹 TOGGLE PASSWORD VISIBILITY
+    function togglePassword() {
+      const password = document.getElementById("password");
+
+      if (password.type === "password") {
+        password.type = "text";
+      } else {
+        password.type = "password";
+      }
+    }
+
+    // 🔹 LOGIN FUNCTION (REAL SUPABASE LOGIN)
+    async function login() {
+
+      const email = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      // Clear old error
+      document.getElementById("error").innerText = "";
+
+      // Supabase login request
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      // If error occurs
+      if (error) {
+        document.getElementById("error").innerText = error.message;
+        return;
+      }
+
+      // Success → redirect to dashboard
+      window.location.href = "dashboard.html";
+    }
+
+    // 🔹 GUEST LOGIN (limited access)
+    function guestLogin() {
+      window.location.href = "guest-dashboard.html";
+    }
+
+  </script>
+
+</body>
+
+</html>
