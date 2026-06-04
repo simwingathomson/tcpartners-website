@@ -1,382 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>T&C Partners | Research & Academic Excellence</title>
+  <title>T&C Partners | Dashboard</title>
 
-<style>
+  <!-- Supabase Library -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-/* RESET */
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Segoe UI, Arial, sans-serif;
-}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f7fb;
+    }
 
-body{
-background:#ffffff;
-color:#1f2937;
-}
+    header {
+      background: #0B1F3A;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
 
-/* NAVBAR */
-nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 60px;
-background:white;
-box-shadow:0 2px 8px rgba(0,0,0,.08);
-position:sticky;
-top:0;
-z-index:1000;
-}
+    .container {
+      padding: 30px;
+    }
 
-.logo{
-display:flex;
-align-items:center;
-gap:12px;
-}
+    .card {
+      background: white;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
 
-.logo img{
-height:65px;
-}
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #0a58ca;
+      color: white;
+      margin-top: 10px;
+    }
 
-.logo h2{
-color:#0B1F3A;
-}
+    .logout {
+      background: #dc3545;
+    }
 
-nav ul{
-display:flex;
-list-style:none;
-gap:30px;
-}
+    .user-box {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
 
-nav a{
-text-decoration:none;
-color:#333;
-font-weight:600;
-}
-
-nav a:hover{
-color:#0a58ca;
-}
-
-/* HERO */
-.hero{
-height:650px;
-background:
-linear-gradient(rgba(11,31,58,.75),rgba(11,31,58,.75)),
-url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f');
-background-size:cover;
-background-position:center;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-color:white;
-padding:30px;
-}
-
-.hero-content{
-max-width:850px;
-}
-
-.hero h1{
-font-size:56px;
-margin-bottom:20px;
-}
-
-.hero p{
-font-size:22px;
-line-height:1.6;
-margin-bottom:30px;
-}
-
-.btn{
-display:inline-block;
-padding:14px 30px;
-background:#0a58ca;
-color:white;
-text-decoration:none;
-border-radius:8px;
-font-weight:bold;
-}
-
-.btn:hover{
-background:#084298;
-}
-
-/* SECTIONS */
-.section{
-padding:80px 60px;
-}
-
-.section-title{
-text-align:center;
-margin-bottom:50px;
-}
-
-.section-title h2{
-font-size:40px;
-color:#0B1F3A;
-}
-
-/* SERVICES */
-.services{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
-}
-
-.card{
-background:white;
-padding:30px;
-border-radius:12px;
-box-shadow:0 3px 15px rgba(0,0,0,.08);
-transition:.3s;
-}
-
-.card:hover{
-transform:translateY(-5px);
-}
-
-.card h3{
-margin-bottom:15px;
-color:#0B1F3A;
-}
-
-/* CARD IMAGE */
-.card img{
-width:100%;
-height:180px;
-object-fit:cover;
-border-radius:10px;
-margin-bottom:15px;
-}
-
-/* WHY SECTION */
-.why{
-background:#f7f9fc;
-}
-
-.features{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
-}
-
-.feature{
-background:white;
-padding:25px;
-border-radius:12px;
-text-align:center;
-}
-
-/* DASHBOARD PREVIEW */
-.dashboard{
-background:#f7f9fc;
-}
-
-/* CTA */
-.cta{
-background:#0B1F3A;
-color:white;
-text-align:center;
-padding:80px 30px;
-}
-
-/* FOOTER */
-footer{
-background:#071426;
-color:white;
-padding:40px;
-text-align:center;
-}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-
-.hero h1{
-font-size:38px;
-}
-
-nav{
-padding:15px 20px;
-}
-
-nav ul{
-display:none;
-}
-
-.section{
-padding:50px 20px;
-}
-}
-
-</style>
 </head>
 
 <body>
 
-<!-- NAV -->
-<nav>
+  <!-- HEADER -->
+  <header>
+    <h1>Student Dashboard</h1>
+    <p>T&C Partners Learning Portal</p>
+  </header>
 
-<div class="logo">
-<img src="logo.png" alt="T&C Partners Logo">
-<h2>T&C Partners</h2>
-</div>
+  <div class="container">
 
-<ul>
-<li><a href="#">Home</a></li>
-<li><a href="login.html">Student Login</a></li>
-<li><a href="dashboard.html">Dashboard</a></li>
-</ul>
+    <!-- USER INFO -->
+    <div class="card">
+      <h2>Welcome 👋</h2>
+      <p class="user-box">
+        Logged in as: <span id="userEmail">Loading...</span>
+      </p>
+    </div>
 
-</nav>
+    <!-- COURSES -->
+    <div class="card">
+      <h3>📘 Courses</h3>
+      <p>Access your learning materials and modules.</p>
+      <button>Open Courses</button>
+    </div>
 
-<!-- HERO -->
-<section class="hero">
+    <!-- RESOURCES -->
+    <div class="card">
+      <h3>📄 Research Resources</h3>
+      <p>Download templates and guides.</p>
+      <button>View Resources</button>
+    </div>
 
-<div class="hero-content">
+    <!-- CERTIFICATES -->
+    <div class="card">
+      <h3>🎓 Certificates</h3>
+      <p>View your completed certificates.</p>
+      <button>Check Certificates</button>
+    </div>
 
-<h1>Academic Success Starts Here</h1>
+    <!-- PROFILE -->
+    <div class="card">
+      <h3>👤 Profile</h3>
+      <p>Manage your account details.</p>
+      <button>View Profile</button>
+    </div>
 
-<p>
-Professional support for thesis writing,
-dissertations, assignments, research projects,
-CV design and interview preparation.
-</p>
+    <!-- LOGOUT -->
+    <div class="card">
+      <h3>Logout</h3>
+      <p>End your session securely.</p>
+      <button class="logout" onclick="logout()">Logout</button>
+    </div>
 
-<a href="login.html" class="btn">Start Learning</a>
+  </div>
 
-</div>
+  <!-- SUPABASE LOGIC -->
+  <script>
 
-</section>
+    // 🔐 CONNECT TO SUPABASE
+    const supabaseUrl = "YOUR_SUPABASE_URL";
+    const supabaseKey = "YOUR_SUPABASE_ANON_KEY";
 
-<!-- SERVICES -->
-<section class="section">
+    const supabase = window.supabase.createClient(
+      supabaseUrl,
+      supabaseKey
+    );
 
-<div class="section-title">
-<h2>Our Services</h2>
-</div>
+    // 🔐 CHECK LOGIN STATUS
+    async function checkUser() {
 
-<div class="services">
+      const { data: { user } } = await supabase.auth.getUser();
 
-<div class="card">
-<h3>Thesis & Dissertation Support</h3>
-<p>Guidance from topic selection to final submission.</p>
-</div>
+      // If not logged in → redirect to login page
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
 
-<div class="card">
-<h3>Assignment Assistance</h3>
-<p>Professional academic support across multiple disciplines.</p>
-</div>
+      // Show user email
+      document.getElementById("userEmail").innerText =
+        user.email;
+    }
 
-<div class="card">
-<h3>Research Support</h3>
-<p>Research proposals, methodology, data analysis and reporting.</p>
-</div>
+    checkUser();
 
-<div class="card">
-<h3>CV Design</h3>
-<p>Professional CVs tailored to employers and opportunities.</p>
-</div>
+    // 🚪 LOGOUT FUNCTION
+    async function logout() {
 
-<div class="card">
-<h3>Interview Preparation</h3>
-<p>Build confidence and improve interview performance.</p>
-</div>
+      await supabase.auth.signOut();
 
-<div class="card">
-<h3>Online Learning Resources</h3>
-<p>Templates, guides, e-books and practical training.</p>
-</div>
+      // Redirect to login page
+      window.location.href = "login.html";
+    }
 
-</div>
-
-</section>
-
-<!-- WHY -->
-<section class="section why">
-
-<div class="section-title">
-<h2>Why Choose T&C Partners?</h2>
-</div>
-
-<div class="features">
-
-<div class="feature">
-<h3>Expert Guidance</h3>
-<p>Experienced academic and professional support.</p>
-</div>
-
-<div class="feature">
-<h3>Flexible Learning</h3>
-<p>Learn from anywhere at your own pace.</p>
-</div>
-
-<div class="feature">
-<h3>Affordable Services</h3>
-<p>Quality support at student-friendly rates.</p>
-</div>
-
-<div class="feature">
-<h3>Career Growth</h3>
-<p>Practical skills for academic and professional success.</p>
-</div>
-
-</div>
-
-</section>
-
-<!-- DASHBOARD PREVIEW -->
-<section class="section dashboard">
-
-<div class="section-title">
-<h2>Student Dashboard Preview</h2>
-<p>Experience how learners interact with T&C Partners</p>
-</div>
-
-<div class="services">
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1600180758890-6b94519a8ba6">
-<h3>📘 Learning Materials</h3>
-<p>Access notes, guides, and academic resources anytime.</p>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1588072432836-e10032774350">
-<h3>🧠 AI Study Support</h3>
-<p>Get instant answers and research help through smart tools.</p>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644">
-<h3>🎓 Student Collaboration</h3>
-<p>Learn together with peers across Africa.</p>
-</div>
-
-</div>
-
-</section>
-
-<!-- CTA -->
-<section class="cta">
-
-<h2>Ready to Achieve Your Goals?</h2>
-<br>
-<a href="login.html" class="btn">Join T&C Partners Today</a>
-
-</section>
-
-<!-- FOOTER -->
-<footer>
-<p>© 2026 T&C Partners | Research, Learning & Career Development</p>
-</footer>
+  </script>
 
 </body>
+
 </html>

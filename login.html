@@ -1,119 +1,210 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>T&C Partners | Login</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T&C Partners | Login</title>
 
-  <!-- Supabase Library -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+```
+<!-- Main Stylesheet -->
+<link rel="stylesheet" href="styles.css">
+
+<!-- Supabase Library -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+```
+
 </head>
 
 <body class="login-page">
 
-  <div class="login-container">
+```
+<div class="login-container">
 
     <h1>T&C Partners</h1>
     <p>Student Access Portal</p>
 
-    <!-- LOGIN BOX -->
+    <!-- Login Box -->
     <div class="login-box">
 
-      <h2>Login</h2>
+        <h2>Login</h2>
 
-      <input id="username" type="email" placeholder="Email">
-      <input id="password" type="password" placeholder="Password">
+        <!-- Email -->
+        <input
+            id="username"
+            type="email"
+            placeholder="Enter your email"
+            required
+        >
 
-      <!-- Show Password -->
-      <label>
-        <input type="checkbox" onclick="togglePassword()">
-        Show Password
-      </label>
+        <!-- Password -->
+        <input
+            id="password"
+            type="password"
+            placeholder="Enter your password"
+            required
+        >
 
-      <button onclick="login()">Login</button>
+        <!-- Show Password -->
+        <label class="show-password">
+            <input
+                type="checkbox"
+                onclick="togglePassword()"
+            >
+            Show Password
+        </label>
 
-      <!-- Error message -->
-      <p id="error" class="error-message"></p>
+        <!-- Login Button -->
+        <button onclick="login()">
+            Login
+        </button>
 
-      <!-- Forgot password -->
-      <p>
-        <a href="forgot-password.html">Forgot Password?</a>
-      </p>
+        <!-- Error Message -->
+        <p id="error" class="error-message"></p>
 
-      <!-- Register link -->
-      <p>
-        Don't have an account?
-        <a href="register.html">Register Here</a>
-      </p>
+        <!-- Forgot Password -->
+        <p class="forgot-password">
+            <a href="forgot-password.html">
+                Forgot Password?
+            </a>
+        </p>
+
+        <!-- Register Link -->
+        <p class="register-link">
+            Don't have an account?
+            <a href="register.html">
+                Register Here
+            </a>
+        </p>
 
     </div>
 
-    <!-- GUEST ACCESS -->
+    <!-- Guest Access -->
     <div class="guest-box">
-      <h3>Or continue as Guest</h3>
-      <p>No login required</p>
 
-      <button onclick="guestLogin()">Guest Access</button>
+        <h3>Continue as Guest</h3>
+
+        <p>
+            Guests can view course previews only.
+        </p>
+
+        <button onclick="guestLogin()">
+            Guest Access
+        </button>
+
     </div>
 
-    <a href="index.html" class="back-link">← Back to Home</a>
+    <!-- Back Home -->
+    <a href="index.html" class="back-link">
+        ← Back to Home
+    </a>
 
-  </div>
+</div>
 
-  <!-- ===================== -->
-  <!-- SUPABASE + FUNCTIONS -->
-  <!-- ===================== -->
+<script>
 
-  <script>
-    // 🔹 CONNECT TO SUPABASE (replace with your real values)
-    const supabaseUrl = "sdnifwufsfgnralrjxmiL";
-    const supabaseKey = "sb_publishable_foffboqIhYu0kfuM4X7pBA_d8j7kPUv";
+    /* =====================================
+       SUPABASE CONFIGURATION
+    ===================================== */
 
-    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    const supabaseUrl =
+        "https://YOUR-PROJECT-ID.supabase.co";
 
-    // 🔹 TOGGLE PASSWORD VISIBILITY
+    const supabaseKey =
+        "YOUR_SUPABASE_ANON_KEY";
+
+    const supabaseClient =
+        window.supabase.createClient(
+            supabaseUrl,
+            supabaseKey
+        );
+
+    /* =====================================
+       SHOW / HIDE PASSWORD
+    ===================================== */
+
     function togglePassword() {
-      const password = document.getElementById("password");
 
-      if (password.type === "password") {
-        password.type = "text";
-      } else {
-        password.type = "password";
-      }
+        const passwordField =
+            document.getElementById("password");
+
+        if (passwordField.type === "password") {
+
+            passwordField.type = "text";
+
+        } else {
+
+            passwordField.type = "password";
+
+        }
+
     }
 
-    // 🔹 LOGIN FUNCTION (REAL SUPABASE LOGIN)
+    /* =====================================
+       LOGIN FUNCTION
+    ===================================== */
+
     async function login() {
 
-      const email = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
+        const email =
+            document.getElementById("username").value.trim();
 
-      // Clear old error
-      document.getElementById("error").innerText = "";
+        const password =
+            document.getElementById("password").value;
 
-      // Supabase login request
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password
-      });
+        const errorElement =
+            document.getElementById("error");
 
-      // If error occurs
-      if (error) {
-        document.getElementById("error").innerText = error.message;
-        return;
-      }
+        // Clear old errors
+        errorElement.innerText = "";
 
-      // Success → redirect to dashboard
-      window.location.href = "dashboard.html";
+        // Validate fields
+        if (!email || !password) {
+
+            errorElement.innerText =
+                "Please enter your email and password.";
+
+            return;
+        }
+
+        // Attempt login
+        const { data, error } =
+            await supabaseClient.auth.signInWithPassword({
+
+                email: email,
+                password: password
+
+            });
+
+        // Handle errors
+        if (error) {
+
+            errorElement.innerText =
+                error.message;
+
+            return;
+        }
+
+        // Successful login
+        window.location.href =
+            "dashboard.html";
+
     }
 
-    // 🔹 GUEST LOGIN (limited access)
+    /* =====================================
+       GUEST LOGIN
+    ===================================== */
+
     function guestLogin() {
-      window.location.href = "guest-dashboard.html";
+
+        window.location.href =
+            "guest-dashboard.html";
+
     }
 
-  </script>
+</script>
+```
 
 </body>
 
