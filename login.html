@@ -1,44 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>T&C Partners | Login</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
+<!-- PAGE CONTENT ABOVE -->
 
-<body class="login-page">
+<!-- 8. Redirect After Login -->
+<script>
+// Toggle password visibility
+function togglePassword() {
+  const password = document.getElementById("password");
 
-  <div class="login-container">
+  // Switch between hidden and visible password
+  if (password.type === "password") {
+    password.type = "text";
+  } else {
+    password.type = "password";
+  }
+}
 
-    <h1>T&C Partners</h1>
-    <p>Student Access Portal</p>
+// Login function
+function login() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
 
-    <!-- LOGIN BOX -->
-    <div class="login-box">
+  // Simple demo login check
+  if (username === "student" && password === "1234") {
 
-      <h2>Login</h2>
+    // Redirect to dashboard after success
+    window.location.href = "dashboard.html";
 
-      <input id="username" type="text" placeholder="Username">
-      <input id="password" type="password" placeholder="Password">
+  } else {
 
-      <button onclick="login()">Login</button>
+    // Show error message
+    document.getElementById("error").innerText =
+      "Invalid username or password.";
+  }
+}
 
-      <p id="error"></p>
-
-    </div>
-
-    <!-- GUEST ACCESS -->
-    <div class="guest-box">
-      <h3>Or continue as Guest</h3>
-      <p>No login required</p>
-
-      <button onclick="guestLogin()">Guest Access</button>
-    </div>
-
-    <a href="index.html" class="back-link">← Back to Home</a>
-
-  </div>
-
-  <script src="app.js"></script>
-</body>
-</html>
+// Guest login function
+function guestLogin() {
+  window.location.href = "guest-dashboard.html";
+}
+</script>
